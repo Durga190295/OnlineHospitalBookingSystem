@@ -1,0 +1,67 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by patient name"
+        [(ngModel)]="name"
+        (keyup)="onKeyUpEvent($event)"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <h4>Appointments List</h4>
+
+    <div class="table-responsive">
+
+     <table datatable class="table table-hover" style="width:100%">
+    
+      <thead class="thead-dark">
+        <tr>
+          <th>patient</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Contact</th>
+          <th>Description</th>
+          <th>checkIn</th>
+          <th>checkOut</th>
+          <th>Action</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let slot of Appointments" (click)="setActiveAppointment(slot, i)">
+          <td>{{slot.patientName}}</td>
+          <td>{{slot.age}}</td>
+          <td>{{slot.sex}}</td>
+          <td>{{slot.phone}}</td>
+          <td>{{slot.description}}</td>
+          <td>{{slot.fromTime |  date:'MM/dd/yyyy  h:mma'}}</td>
+          <td>{{slot.toTime |  date:'MM/dd/yyyy  h:mma'}}</td>
+
+          <td>
+            <a class="badge editbtn badge-warning" routerLink="/appointments/{{ slot.phone }}">
+              Edit
+            </a>
+            <a (click) = "deleteSlot(slot._id)" style="cursor:pointer" class="badge deletebtn btn-danger">Delete</a>
+        </tr>
+      </tbody> 
+    </table>
+</div>
+    <!-- <button class="m-3 btn btn-sm btn-danger" (click)="removeAllAppointments()">
+      Remove All
+    </button> -->
+    
+  </div>
+ 
+</div>

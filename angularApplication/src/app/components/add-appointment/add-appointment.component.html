@@ -1,0 +1,81 @@
+<div class="submit-form">
+    <div class="form-group">
+      <label for="title">PatientName</label>
+      <input
+        type="text"
+        class="form-control"
+        id="patientName"
+        required
+        [(ngModel)]="appointment.patientName"
+        name="patientName"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Age</label>
+      <input
+        class="form-control"
+        id="age"
+        required
+        [(ngModel)]="appointment.age"
+        name="age"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Sex</label>
+      <div *ngFor="let option of genders">
+        <div class="radio">
+            <input type="radio"
+               name="radio"
+               id="radio-{{option.id}}"
+               [(ngModel)]="appointment.sex"
+               [value]="option.value"
+               />
+    
+        <label for="radio-{{option.id}}">{{option.id}}
+        </label>
+    
+    </div>
+    </div></div>
+    <div class="form-group">
+      <label for="description">Appointment From Timing</label>
+    
+   <mat-form-field>
+    <input matInput type="datetime-local"  [(ngModel)]="appointment.fromTime" placeholder="fromTime">
+  </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Appointment To Timing</label>
+    
+   <mat-form-field>
+    <input matInput type="datetime-local"   [(ngModel)]="appointment.toTime" placeholder="toTime">
+  </mat-form-field>
+    </div>
+    
+    <div class="form-group">
+      <label for="description">Phone</label>
+      <input
+        class="form-control"
+        id="phone"
+        required
+        [(ngModel)]="appointment.phone"
+        name="phone"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        class="form-control"
+        id="description"
+        required
+        [(ngModel)]="appointment.description"
+        name="age"
+      />
+    </div>
+   
+
+    <button (click)="saveAppointment()" class="btn btn-success">Submit</button>
+
+ 
+</div>
