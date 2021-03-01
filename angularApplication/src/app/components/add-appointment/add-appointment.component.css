@@ -1,4 +1,7 @@
 .submit-form {
-  max-width: 300px;
+  width: 800px;
   margin: auto;
+}
+.has-error {
+    color: rgb(230, 14, 14);
 }

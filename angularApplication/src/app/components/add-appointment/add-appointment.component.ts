@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TutorialService } from 'src/app/services/appointment.service';
 import { Router } from '@angular/router';
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-add-appointment',
@@ -8,7 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-appointment.component.css']
 })
 export class AddAppointmentComponent implements OnInit {
-  
+  slotForm: FormGroup;
+
   appointment = {
     patientName: '',
     age: 0,
@@ -30,10 +32,21 @@ export class AddAppointmentComponent implements OnInit {
 }];
   submitted = false;
 
-  constructor(private tutorialService: TutorialService,private router: Router) { }
+  constructor(private fb: FormBuilder,private tutorialService: TutorialService,private router: Router) { 
+    
+  }
 
   ngOnInit() {
-    
+    this.slotForm = this.fb.group({
+      patientName: ['', Validators.required],
+      age: ['', Validators.required],
+      sex: ['', Validators.required],
+      phone: ['', Validators.required],
+      description: ['', Validators.required],
+      fromTime: ['', Validators.required],
+      toTime: ['', Validators.required],
+
+    });
   }
    
   saveAppointment() {
@@ -46,7 +59,9 @@ export class AddAppointmentComponent implements OnInit {
       fromTime:this.appointment.fromTime,
       toTime:this.appointment.toTime
     };
-
+    if(this.slotForm.invalid){
+      return;
+    }
     this.tutorialService.create(appointmentObject)
       .subscribe(
         response => {

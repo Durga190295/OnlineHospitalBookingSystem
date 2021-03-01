@@ -1,81 +1,98 @@
-<div class="submit-form">
+  <div class="submit-form">
+  <form [formGroup]="slotForm" novalidate>
     <div class="form-group">
       <label for="title">PatientName</label>
-      <input
-        type="text"
-        class="form-control"
-        id="patientName"
-        required
-        [(ngModel)]="appointment.patientName"
-        name="patientName"
-      />
+      <input type="text" class="form-control" id="patientName" formControlName="patientName"
+        [(ngModel)]="appointment.patientName" name="patientName" required>
+      <div
+        *ngIf="slotForm.controls['patientName'].invalid && (slotForm.controls['patientName'].dirty || slotForm.controls['patientName'].touched)">
+        <div class="has-error" *ngIf="slotForm.controls['patientName'].errors.required">
+          Product Name is required.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="description">Age</label>
-      <input
-        class="form-control"
-        id="age"
-        required
-        [(ngModel)]="appointment.age"
-        name="age"
-      />
+      <input class="form-control" id="age" formControlName="age" [(ngModel)]="appointment.age" name="age" required>
+      <div
+        *ngIf="slotForm.controls['age'].invalid && (slotForm.controls['age'].dirty || slotForm.controls['age'].touched)">
+        <div class="has-error" *ngIf="slotForm.controls['age'].errors.required">
+          Age is required.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="description">Sex</label>
       <div *ngFor="let option of genders">
-        <div class="radio">
-            <input type="radio"
-               name="radio"
-               id="radio-{{option.id}}"
-               [(ngModel)]="appointment.sex"
-               [value]="option.value"
-               />
-    
-        <label for="radio-{{option.id}}">{{option.id}}
-        </label>
-    
+        <div class="radio formControlName">
+          <input type="radio" name="sex" formControlName="sex" id="radio-{{option.id}}" [(ngModel)]="appointment.sex"
+            [value]="option.value" required>
+
+          <label for="radio-{{option.id}}">{{option.id}}
+          </label>
+        </div>
+        <div
+          *ngIf="slotForm.controls['sex'].invalid && (slotForm.controls['sex'].dirty || slotForm.controls['sex'].touched)">
+          <div class="has-error" *ngIf="slotForm.controls['sex'].errors.required">
+            Gender is required.
+          </div>
+        </div>
+      </div>
     </div>
-    </div></div>
     <div class="form-group">
-      <label for="description">Appointment From Timing</label>
-    
-   <mat-form-field>
-    <input matInput type="datetime-local"  [(ngModel)]="appointment.fromTime" placeholder="fromTime">
-  </mat-form-field>
+
+      <mat-form-field>
+        <input class="form-control" formControlName="fromTime" matInput type="datetime-local"
+          [(ngModel)]="appointment.fromTime" placeholder="fromTime" required>
+      </mat-form-field>
+      <div
+        *ngIf="slotForm.controls['fromTime'].invalid && (slotForm.controls['fromTime'].dirty || slotForm.controls['fromTime'].touched)">
+        <div class="has-error" *ngIf="slotForm.controls['fromTime'].errors.required">
+          checkIn is required.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="description">Appointment To Timing</label>
-    
-   <mat-form-field>
-    <input matInput type="datetime-local"   [(ngModel)]="appointment.toTime" placeholder="toTime">
-  </mat-form-field>
+
+      <mat-form-field>
+        <input class="form-control" name="toTime" formControlName="toTime" matInput type="datetime-local"
+          [(ngModel)]="appointment.toTime" placeholder="toTime" required>
+      </mat-form-field>
+      <div
+        *ngIf="slotForm.controls['toTime'].invalid && (slotForm.controls['toTime'].dirty || slotForm.controls['toTime'].touched)">
+        <div class="has-error" *ngIf="slotForm.controls['toTime'].errors.required">
+          checkOut is required.
+        </div>
+      </div>
     </div>
-    
+
     <div class="form-group">
       <label for="description">Phone</label>
-      <input
-        class="form-control"
-        id="phone"
-        required
-        [(ngModel)]="appointment.phone"
-        name="phone"
-      />
+      <input class="form-control" id="phone" formControlName="phone" [(ngModel)]="appointment.phone" name="phone"
+        required>
+      <div
+        *ngIf="slotForm.controls['phone'].invalid && (slotForm.controls['phone'].dirty || slotForm.controls['phone'].touched)">
+        <div class="has-error" *ngIf="slotForm.controls['phone'].errors.required">
+          Phone Number is required.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <input
-        class="form-control"
-        id="description"
-        required
-        [(ngModel)]="appointment.description"
-        name="age"
-      />
+      <input class="form-control" id="description" formControlName="description" [(ngModel)]="appointment.description"
+        name="age" required>
+        <div
+        *ngIf="slotForm.controls['description'].invalid && (slotForm.controls['description'].dirty || slotForm.controls['description'].touched)">
+        <div class="has-error" *ngIf="slotForm.controls['description'].errors.required">
+          Description is required.
+        </div>
+      </div>
     </div>
-   
 
-    <button (click)="saveAppointment()" class="btn btn-success">Submit</button>
 
- 
+    <button type="submit" (click)="saveAppointment()" class="btn btn-success">Submit</button>
+  </form>
+
 </div>

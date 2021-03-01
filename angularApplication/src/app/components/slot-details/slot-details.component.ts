@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TutorialService } from 'src/app/services/appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-slot-details',
@@ -12,6 +13,8 @@ export class SlotDetailsComponent implements OnInit {
   currentslot = null;
   message = '';
   value: any;
+  slotEditForm: FormGroup;
+
   genders = [
 {
     id: "male",
@@ -24,13 +27,24 @@ export class SlotDetailsComponent implements OnInit {
   constructor(
     private tutorialService: TutorialService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.slotEditForm = this.fb.group({
+      patientName: ['', Validators.required],
+      age: ['', Validators.required],
+      sex: ['', Validators.required],
+      phone: ['', Validators.required],
+      description: ['', Validators.required],
+      fromTime: ['', Validators.required],
+      toTime: ['', Validators.required],
+
+    });
     this.message = '';
     console.log(this.route.snapshot.paramMap.get('phone'));
     this.getAppointment(this.route.snapshot.paramMap.get('phone'));
   }
+   
 
   getAppointment(phone) {
     this.tutorialService.get(phone)

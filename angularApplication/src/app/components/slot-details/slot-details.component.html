@@ -1,93 +1,105 @@
 <div *ngIf="currentslot" class="edit-form">
-  <h2>Appointment</h2>
-  <form>
+  <form [formGroup]="slotEditForm" novalidate>
+
+    <h2>Appointment</h2>
+
     <div class="form-group">
       <label for="title">PatientName</label>
-      <input
-        type="text"
-        class="form-control"
-        id="patientName"
-        required
-        [(ngModel)]="currentslot.patientName"
-        name="patientName"
-      />
+      <input type="text" class="form-control" formControlName="patientName" id="patientName" required [(ngModel)]="currentslot.patientName"
+        name="patientName" />
+      <div
+        *ngIf="slotEditForm.controls['patientName'].invalid && (slotEditForm.controls['patientName'].dirty || slotEditForm.controls['patientName'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['patientName'].errors.required">
+          Product Name is required.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="age">Age</label>
-      <input
-        class="form-control"
-        id="age"
-        required
-        [(ngModel)]="currentslot.age"
-        name="age"
-      />
+      <input class="form-control" id="age" required formControlName="age" [(ngModel)]="currentslot.age" name="age" />
+      <div
+        *ngIf="slotEditForm.controls['age'].invalid && (slotEditForm.controls['age'].dirty || slotEditForm.controls['age'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['age'].errors.required">
+          Age is required.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="description">Sex</label>
       <div *ngFor="let option of genders">
         <div class="radio">
-            <input type="radio"
-               name="radio"
-               id="radio-{{option.id}}"
-               [(ngModel)]="currentslot.sex"
-               [value]="option.value"
-               />
-    
-        <label for="radio-{{option.id}}">{{option.id}}
-        </label>
-    
-    </div>
-    </div></div>
-  
-    <div class="form-group">
-      <label for="description">Phone</label>
-      <input
-        class="form-control"
-        id="phone"
-        required
-        [(ngModel)]="currentslot.phone"
-        name="phone"
-      />
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input
-        class="form-control"
-        id="description"
-        required
-        [(ngModel)]="currentslot.description"
-        name="description"
-      />
-    </div>
-    <div class="form-group">
-      <label for="description">Appointment From Timing</label>
-    
-   <mat-form-field>
-    <input matInput type="datetime-local" value="currentslot.fromTime" [(ngModel)]="currentslot.fromTime" placeholder="fromTime">
-  </mat-form-field>
+          <input type="radio" name="sex" formControlName="sex" id="radio-{{option.id}}" [(ngModel)]="currentslot.sex"
+            [value]="option.value" />
+
+          <label for="radio-{{option.id}}">{{option.id}}
+          </label>
+
+        </div>
+      </div>
+      <div
+        *ngIf="slotEditForm.controls['sex'].invalid && (slotEditForm.controls['sex'].dirty || slotEditForm.controls['sex'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['sex'].errors.required">
+          Gender is required.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="description">Appointment To Timing</label>
-    
-   <mat-form-field>
-    <input matInput type="datetime-local"  value="currentslot.toTime" [(ngModel)]="currentslot.toTime" placeholder="toTime">
-  </mat-form-field>
+      <label for="description">CheckIn</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <mat-form-field>
+        <input matInput type="datetime-local" value="currentslot.fromTime" formControlName="fromTime" [(ngModel)]="currentslot.fromTime"
+          placeholder="fromTime">
+      </mat-form-field>
+      <div
+        *ngIf="slotEditForm.controls['fromTime'].invalid && (slotEditForm.controls['fromTime'].dirty || slotEditForm.controls['fromTime'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['fromTime'].errors.required">
+          checkIn is required.
+        </div>
+      </div>
     </div>
-    <button type="submit" class="badge badge-success" (click)="updateAppointment(currentslot)">
+
+    <div class="form-group">
+      <label for="description">CheckOut</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <mat-form-field>
+        <input matInput type="datetime-local" value="currentslot.toTime" formControlName="toTime" [(ngModel)]="currentslot.toTime"
+          placeholder="toTime">
+      </mat-form-field>
+      <div
+        *ngIf="slotEditForm.controls['toTime'].invalid && (slotEditForm.controls['toTime'].dirty || slotEditForm.controls['toTime'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['toTime'].errors.required">
+          checkOut is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Phone</label>
+      <input class="form-control" id="phone" formControlName="phone" required [(ngModel)]="currentslot.phone" name="phone" />
+      <div
+        *ngIf="slotEditForm.controls['phone'].invalid && (slotEditForm.controls['phone'].dirty || slotEditForm.controls['phone'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['phone'].errors.required">
+          Phone Number is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input class="form-control" id="description" required formControlName="description" [(ngModel)]="currentslot.description" name="description" />
+      <div
+        *ngIf="slotEditForm.controls['description'].invalid && (slotEditForm.controls['description'].dirty || slotEditForm.controls['description'].touched)">
+        <div class="has-error" *ngIf="slotEditForm.controls['description'].errors.required">
+          Description is required.
+        </div>
+      </div>
+    </div>
+   
+    <button class="badge badge-success" type="submit" (click)="updateAppointment(currentslot)">
       Update
     </button>
 
-  </form>
-
-  
-
-  <!-- <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
-    Delete
-  </button> -->
-
- 
+</form>
 </div>
-
-
